@@ -1,25 +1,7 @@
-(ns noop
-  (:require [clojure.test :refer [function?]]))
+(ns noop)
 
-(defn do-when-func
-  [arg x]
-  (when (function? x)
-    (x arg)))
-
-(defn noop-first
+(defn constantly-run-first!
   [& args]
-  (let [keep (first args)
-        _ (mapv #(do-when-func keep %) args)]
+  (let [keep (first args)]
+    (run! #(% keep) (rest args))
     keep))
-
-(comment
-  
-  (noop-first 12 #(println (str "hello: " %)))
-  
-
-  
-
-
-
-
-  )

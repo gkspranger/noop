@@ -53,11 +53,11 @@ For example:
 ;; when threading as 1st argument
 (-> 1 ;; is 1
     inc ;; is now 2
-    (constantly-run-first! info) ;; logs info "2" once, returns 2
+    (constantly-run-first! info) ;; logs "2" once, returns 2
     (* 3) ;; is now 6
-    (constantly-run-first! info info)) ;; logs info "6" twice, returns 6
+    (constantly-run-first! info info)) ;; logs "6" twice, returns 6
     (/ 2) ;; is now 3
-    (constantly-run-first! #(info (format "the final value is %s")))) ;; logs info "the final value is 3"
+    (constantly-run-first! #(info (format "final value: %s")))) ;; logs "final value: 3"
 3
 ```
 

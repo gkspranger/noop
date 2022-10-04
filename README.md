@@ -1,4 +1,4 @@
-# noop
+# ThrowAway
 
 ## Motivation
 
@@ -11,13 +11,15 @@ I often find myself mixing *throwaway* side effects with what should be pure fun
 For example:
 
 ```clojure
+(require '[taoensso.timbre :refer [debug error]])
+
 ;; this function is not pure because I am writing to STDOUT
 (defn do-something-core-like
   [x]
-  (let [_ (log/debug x) ;; log debug pre-transformation
+  (let [_ (debug x) ;; log debug pre-transformation
         y (inc x) ;; let's pretend this is some important transformation
-        _ (log/debug y) ;; log debug post-transformation
-        _ (when (< y 10) (log/error y)) ;; log error post-transformation, when condition is met
+        _ (debug y) ;; log debug post-transformation
+        _ (when (< y 10) (error y)) ;; log error post-transformation, when condition is met
        ]
     y))
 ```
@@ -25,6 +27,8 @@ For example:
 ### Imperative Shell
 
 I also like using threading macros[^2] (imperative shell), but find it cumbersome to incorporate *throwaway* side effects into my pipeline without having to ensure they return a value that can be used by a following form. Not to mention the library wrappers I constantly find myself writing, just so I can remain in the pipeline.
+
+For example:
 
 ```clojure
 (require '[taoensso.timbre :refer [info]])
@@ -38,7 +42,7 @@ I also like using threading macros[^2] (imperative shell), but find it cumbersom
 
 ### Throwaway Side Effects
 
-**Definition:** A function, in its current context, that you do not care what its return value is.
+**Definition:** A function, in its current context, that you do not care what its expected return value is.
 
 ## Syntax
 

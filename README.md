@@ -60,7 +60,7 @@ Long story short, it's a mix of `constantly`[^3] and `run!`[^4], wrapped in a `t
     (* 3) ;; is now 6
     (constantly-run-first! info info)) ;; logs "6" twice, returns 6
     (/ 2) ;; is now 3
-    (constantly-run-first! #(info (format "final value: %s" %)))) ;; logs "final value: 3", returns 3
+    (constantly-run-first! #(info "final value: " %))) ;; logs "final value: 3", returns 3
 3
 ```
 

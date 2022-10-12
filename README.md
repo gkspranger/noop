@@ -6,7 +6,7 @@
 
 ### Functional Core
 
-I often find myself mixing *throwaway* side effects with what should be pure functions (functional core). This includes pushing logs, metrics, traces, and updates (e.g. "system X about to deploy Y", "Y has been deployed to system X", etc).
+I often find myself mixing *throwaway* side effects with what should be pure functions (functional core). This includes dispatching logs, metrics, traces, and updates (e.g. "system X about to deploy Y", "Y has been deployed to system X", etc).
 
 For example:
 
@@ -26,7 +26,7 @@ For example:
 
 ### Imperative Shell
 
-I also like using threading macros[^2] (imperative shell), but find it cumbersome to incorporate *throwaway* side effects into my pipeline without having to ensure they return a value that can be used by a following form. Not to mention the library wrappers I constantly find myself writing, just so I can remain in the pipeline.
+I also like using threading macros[^2] (imperative shell), but find it cumbersome to incorporate *throwaway* side effects into my pipeline without having to ensure they return a value that can be used by a following form. Not to mention the library wrappers I constantly find myself writing just to remain in the pipeline.
 
 For example:
 
@@ -57,7 +57,7 @@ For example:
     (* 3) ;; is now 6
     (constantly-run-first! info info)) ;; logs "6" twice, returns 6
     (/ 2) ;; is now 3
-    (constantly-run-first! #(info (format "final value: %s")))) ;; logs "final value: 3"
+    (constantly-run-first! #(info (format "final value: %s" %)))) ;; logs "final value: 3", returns 3
 3
 ```
 

@@ -1,14 +1,14 @@
-(ns noop.test
+(ns throwaway.test
   (:require [clojure.test :refer [deftest is testing]]
-            [noop :refer [constantly-run-first!
-                          constantly-run-last!]]))
+            [throwaway :refer [constantly-run-first!
+                               constantly-run-last!]]))
 
 (defn f
   [x]
   (println (str "some side effect using: " x)))
 
 (deftest constantly-run-first-test
-  (let [x 1]
+  (let [x "first"]
     (testing "i always return nil when passing 0 args"
       (is (= (constantly-run-first!) nil)))
 
@@ -22,7 +22,7 @@
       (is (= (constantly-run-first! x f f f f) x)))))
 
 (deftest constantly-run-last-test
-  (let [x 1]
+  (let [x "last"]
     (testing "i always return nil when passing 0 args"
       (is (= (constantly-run-last!) nil)))
 

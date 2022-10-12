@@ -1,8 +1,8 @@
-(ns noop)
+(ns throwaway)
 
 (defn constantly-run-first!
-  "Runs the supplied procedures (any argument that is not the 1st argument)
-   for purposes of side effects, while always passing the 1st argument as a
+  "Runs the supplied procedures (any argument that is not the first argument)
+   for purposes of side effects, while always passing the first argument as a
    parameter to successive arguments. Returns the first argument."
   [& args]
   (let [keep (first args)]

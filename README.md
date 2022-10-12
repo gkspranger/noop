@@ -13,14 +13,13 @@ For example:
 ```clojure
 (require '[taoensso.timbre :refer [debug error]])
 
-;; this function is not pure because I am writing to STDOUT
+;; this function is not pure because I am logging to STDOUT
 (defn do-something-core-like
   [x]
   (let [_ (debug x) ;; log debug pre-transformation
         y (inc x) ;; let's pretend this is some important transformation
         _ (debug y) ;; log debug post-transformation
-        _ (when (< y 10) (error y)) ;; log error post-transformation, when condition is met
-       ]
+        _ (when (< y 10) (error y))] ;; when condition is met, log error post-transformation
     y))
 ```
 
@@ -42,7 +41,11 @@ For example:
 
 ### Throwaway Side Effects
 
-**Definition:** A function, in its current context, that you do not care what its expected return value is.
+**Definition:** A function, in its current context, you do not care what its expected return value is.
+
+## Implementation
+
+Long story short, it's a mix of `constantly`[^3] and `run!`[^4], wrapped in a `try`[^5]/`catch`[^6] exception handler.
 
 ## Syntax
 
@@ -64,3 +67,11 @@ For example:
 [^1]: https://kumarshantanu.medium.com/organizing-clojure-code-with-functional-core-imperative-shell-2f2ee869faa2
 
 [^2]: https://clojure.org/guides/threading_macros
+
+[^3]: https://clojuredocs.org/clojure.core/constantly
+
+[^4]: https://clojuredocs.org/clojure.core/run!
+
+[^5]: https://clojuredocs.org/clojure.core/try
+
+[^6]: https://clojuredocs.org/clojure.core/catch

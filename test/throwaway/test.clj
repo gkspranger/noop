@@ -7,6 +7,12 @@
   [x]
   (println (str "some side effect using: " x)))
 
+(defn t
+  [x]
+  (throw (Exception. (println
+                      (str "some side effect that throws an exception using: "
+                           x)))))
+
 (deftest constantly-run-first-test
   (let [x "first"]
     (testing "i always return nil when passing 0 args"
@@ -19,7 +25,11 @@
       (is (= (constantly-run-first! x f) x)))
 
     (testing "i always return the first value when passing many args"
-      (is (= (constantly-run-first! x f f f f) x)))))
+      (is (= (constantly-run-first! x f f f f) x)))
+
+    (testing "i always return the first value when passing args that
+              throw an exception"
+      (is (= (constantly-run-first! x f t f t) x)))))
 
 (deftest constantly-run-last-test
   (let [x "last"]
@@ -33,4 +43,8 @@
       (is (= (constantly-run-last! f x) x)))
 
     (testing "i always return the last value when passing many args"
-      (is (= (constantly-run-last! f f f f x) x)))))
+      (is (= (constantly-run-last! f f f f x) x)))
+
+    (testing "i always return the last value when passing args that
+              throw an exception"
+      (is (= (constantly-run-last! f t f t x) x)))))
